@@ -4,13 +4,14 @@ import {
   AutoSizer,
   CellMeasurer,
   CellMeasurerCache,
+  
 } from "react-virtualized";
-
+import { BASE_URL } from "./utils/config";
 import useSWR from "swr";
 import PostCard from "./components/PostCard";
 
 const App = () => {
-  const { data: posts } = useSWR(`https://jsonplaceholder.typicode.com/posts`);
+  const { data: posts } = useSWR(`${BASE_URL}`);
   const cash = React.useRef(
     new CellMeasurerCache({
       fixedWidth: true,
@@ -19,9 +20,9 @@ const App = () => {
   );
 
   return (
-    <div className=" bg-slate-400 min-h-screen">
+    <div className=" bg-sky-400 min-h-screen ">
       <div style={{ width: "100%", height: "100vh" }}>
-        <AutoSizer>
+        <AutoSizer >
           {({ height, width }) => (
             <List
               height={height}
@@ -40,7 +41,7 @@ const App = () => {
                     columnIndex={0}
                     parent={parent}
                   >
-                    <div style={style}>
+                    <div className=" " style={style}>
                       <PostCard body={post.body} title={post.title} />
                     </div>
                   </CellMeasurer>
